@@ -14,7 +14,8 @@ public class DButil {
 		String password="dharathi123";
 		String url="jdbc:oracle:thin:@//localhost:1521/XE";
 		con=DriverManager.getConnection(url,username,password);
-		System.out.print("successfull");}
+		System.out.print("successfull");
+		}
 	}catch(ClassNotFoundException e) {
 		e.printStackTrace();
 	}catch(SQLException s) {

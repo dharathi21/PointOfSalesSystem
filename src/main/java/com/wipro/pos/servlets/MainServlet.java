@@ -37,8 +37,11 @@ public class MainServlet extends HttpServlet {
 		try {
 		if("newRecord".equalsIgnoreCase(operation)) {
 			String result=addRecord(request);
+			System.out.print(result);
 			if(result.equalsIgnoreCase("success")) {
 				response.sendRedirect("success.html");
+			}else {
+				response.sendRedirect("error.html");
 			}
 		}		
 		}catch(Exception e) {

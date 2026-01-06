@@ -10,7 +10,7 @@
 <form action="MainServlet" method="post">
 <input type="hidden" name="action" value="newRecord"><br>
 Customer Name:<input type="text" name="customer"><br><br>
-Item Name:<input type="text" name="customer"><br><br>
+Item Name:<input type="text" name="item"><br><br>
 Date:<input type="date" name="date"><br><br>
 Quality:<input type="number" name="quality"><br><br>
 Price:<input type="number" name="price"><br><br>

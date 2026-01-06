@@ -17,7 +17,8 @@ public class PosDAO {
 		
 		try {
 			con=DButil.getConnection();
-			PreparedStatement ps=con.prepareStatement("insert into pos_tb values(?,?,?,?,?,?,?,?)");
+			PreparedStatement ps=con.prepareStatement("insert into pos_tb" + "(transid, customername, itemname, trans_date, quantity, price, totalamount, remarks)" +
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 			ps.setString(1, bean.getTransId());
 			ps.setString(2, bean.getCustomerName());
 			ps.setString(3, bean.getItemName());
@@ -28,8 +29,9 @@ public class PosDAO {
 			ps.setString(8, bean.getRemarks());
 			ps.executeUpdate();	
 		}catch(SQLException e) {
+			e.printStackTrace();
 			return "Fail";			
-		} return bean.getTransId();
+		} return "Success";
 	}
 	
 	public String generateTransID(String customerName, Date transDate) {
@@ -40,7 +42,7 @@ public class PosDAO {
 			
 			String namepart=customerName.substring(0,2).toUpperCase();
 				con=DButil.getConnection();
-				PreparedStatement ps=con.prepareStatement("select pos_seq from Dual");
+				PreparedStatement ps=con.prepareStatement("select pos_seq.NEXTVAL FROM Dual");
 				ResultSet rs=ps.executeQuery();
 				int seq=0;
 				if(rs.next()) {
