@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.wipro.pos.bean.PosBean;
 import com.wipro.pos.util.DButil;
@@ -73,6 +75,54 @@ public class PosDAO {
 		return false;
 	}
 	
+	public PosBean fetchRecord(String customerName, Date transDate) {
+		PosBean bean=new PosBean();
+		try {
+			con=DButil.getConnection();
+			PreparedStatement ps=con.prepareStatement("select * from pos_tb where customername=? and trans_date=?");
+			ps.setString(1,customerName);
+			ps.setDate(2, transDate);
+			ResultSet success=ps.executeQuery();
+			if(success.next()) {
+				bean.setTransId(success.getString(1));
+				bean.setCustomerName(success.getString(2));
+				bean.setItemName(success.getString(3));
+			    bean.setTransDate(success.getDate(4));
+			    bean.setQuantity(success.getInt(5));
+			    bean.setPrice(success.getDouble(6));
+			    bean.setTotalAmount(success.getInt(7));
+			    bean.setRemarks(success.getString(8));   
+			}
+			
+		}catch(SQLException e) {
+			    e.printStackTrace();
+		} 
+		return bean;
+	}
 	
+	public List<PosBean> fetchAllRecords() {
+		List<PosBean> list = new ArrayList<PosBean>();
+		PosBean bean=new PosBean();
+		
+		try {
+		con=DButil.getConnection();
+		PreparedStatement ps=con.prepareStatement("select * from pos_tb");
+		ResultSet rs=ps.executeQuery();
+		while(rs.next()) {
+			bean.setTransId(rs.getString(1));
+			bean.setCustomerName(rs.getString(2));
+			bean.setItemName(rs.getString(3));
+		    bean.setTransDate(rs.getDate(4));
+		    bean.setQuantity(rs.getInt(5));
+		    bean.setPrice(rs.getDouble(6));
+		    bean.setTotalAmount(rs.getInt(7));
+		    bean.setRemarks(rs.getString(8));  
+		    list.add(bean);
+		}}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+			
 	
-}
+}}

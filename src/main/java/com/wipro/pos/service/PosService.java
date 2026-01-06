@@ -1,5 +1,9 @@
 package com.wipro.pos.service;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.wipro.pos.bean.PosBean;
 import com.wipro.pos.dao.PosDAO;
 import com.wipro.pos.util.InvalidInputException;
@@ -40,5 +44,22 @@ public class PosService {
 ;		}
 		return result;	
 	}
+	
+	public PosBean viewRecord(String customerName, Date transDate) {
+		PosDAO posDAO=new PosDAO();
+		PosBean bean=new PosBean();
+		bean=posDAO.fetchRecord(customerName, transDate);
+		return bean;
+		
+	}
+	
+	public List<PosBean> viewAllRecords() {
+		List<PosBean> list=new ArrayList<PosBean>();
+		PosDAO posDAO=new PosDAO();
+		list=posDAO.fetchAllRecords();
+		return list;
+	}
+	
+	
 
 }
