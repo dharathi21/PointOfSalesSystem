@@ -1,16 +1,20 @@
 package com.wipro.pos.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import com.wipro.pos.bean.PosBean;
 import com.wipro.pos.util.DButil;
 
 public class PosDAO {
+	Connection con;
 	public String createRecord(PosBean bean) {
-		Connection con;
+		
 		try {
 			con=DButil.getConnection();
 			PreparedStatement ps=con.prepareStatement("insert into pos_tb values(?,?,?,?,?,?,?,?)");
@@ -22,11 +26,32 @@ public class PosDAO {
 			ps.setDouble(6,bean.getPrice());
 			ps.setDouble(7, bean.getTotalAmount());
 			ps.setString(8, bean.getRemarks());
-			int success=ps.executeUpdate();	
+			ps.executeUpdate();	
 		}catch(SQLException e) {
 			return "Fail";			
 		} return bean.getTransId();
 	}
 	
+	public String generateTransID(String customerName, Date transDate) {
+		String id="";
+		try {
+			DateFormat format=new SimpleDateFormat("yyyyMMdd");
+			String datepart=format.format(transDate);
+			
+			String namepart=customerName.substring(0,2).toUpperCase();
+				con=DButil.getConnection();
+				PreparedStatement ps=con.prepareStatement("select pos_seq from Dual");
+				ResultSet rs=ps.executeQuery();
+				int seq=0;
+				if(rs.next()) {
+					seq=rs.getInt(1);
+				}
+				String seqpart=String.format("%02d", seq);
+			 id=datepart+namepart+seqpart;
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			return id;	
+			}  	 
 	
 }
