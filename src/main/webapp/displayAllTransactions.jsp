@@ -8,7 +8,7 @@
 </head>
 <body>
 <% String message=(String)request.getAttribute("message");
-List<PosBean> list=ArrayList<(PosBean)>request.getAttribute("bean");%>
+List<PosBean> list=(List<PosBean>)request.getAttribute("bean");%>
 
 <h1>The details are:</h1>
 <table>
@@ -22,7 +22,8 @@ List<PosBean> list=ArrayList<(PosBean)>request.getAttribute("bean");%>
 <th>Amount</th>
 <th>Remarks</th>
 </tr>
-<%for(PosBean r:list){ %>
+<%if(list!=null){
+	for(PosBean r:list){ %>
 <tr>
 <td><%=r.getTransId() %></td>
 <td><%=r.getCustomerName() %></td>
@@ -33,7 +34,7 @@ List<PosBean> list=ArrayList<(PosBean)>request.getAttribute("bean");%>
 <td><%= r.getTotalAmount() %></td>
 <td><%= r.getRemarks() %></td>
 </tr>
-<%}else{ %>
+<%}}else{ %>
 <h3><%= message %></h3><%} %></table>
 </body>
 </html>

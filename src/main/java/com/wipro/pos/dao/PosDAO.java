@@ -102,13 +102,14 @@ public class PosDAO {
 	
 	public List<PosBean> fetchAllRecords() {
 		List<PosBean> list = new ArrayList<PosBean>();
-		PosBean bean=new PosBean();
+		
 		
 		try {
 		con=DButil.getConnection();
 		PreparedStatement ps=con.prepareStatement("select * from pos_tb");
 		ResultSet rs=ps.executeQuery();
 		while(rs.next()) {
+			PosBean bean=new PosBean();
 			bean.setTransId(rs.getString(1));
 			bean.setCustomerName(rs.getString(2));
 			bean.setItemName(rs.getString(3));

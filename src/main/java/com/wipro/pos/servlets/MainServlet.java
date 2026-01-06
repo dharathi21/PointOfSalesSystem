@@ -82,12 +82,14 @@ public class MainServlet extends HttpServlet {
 		if("viewAllRecords".equalsIgnoreCase(operation)) {
 			List<PosBean> list=new ArrayList<PosBean>();
 			list=viewAllRecords(request);
-			if(list==null) {
+			if(list==null || list.isEmpty()) {
+				System.out.print("fail");
 				request.setAttribute("message", "No records available");
-				request.getRequestDispatcher("displayAllTransaction.jsp").forward(request, response);
+				request.getRequestDispatcher("displayAllTransactions.jsp").forward(request, response);
 			}else {
+				System.out.print("pass");
 				request.setAttribute("bean", list);
-				request.getRequestDispatcher("displayAllTransaction.jsp").forward(request, response);
+				request.getRequestDispatcher("displayAllTransactions.jsp").forward(request, response);
 			}	
 			
 		}

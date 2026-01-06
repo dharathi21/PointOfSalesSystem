@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="MainServlet">
-<input type="hidden" name="operation" value="viewAllRecords"> 
-<button type="submit"></button></form>
+<form action="MainServlet" method="post">
+<input type="hidden" name="action" value="viewAllRecords"> 
+<button type="submit">View</button></form>
 </body>
 </html>
