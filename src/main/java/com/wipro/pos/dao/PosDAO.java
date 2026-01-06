@@ -52,6 +52,25 @@ public class PosDAO {
 				e.printStackTrace();
 			}
 			return id;	
-			}  	 
+			}
+
+	public boolean recordExists(String customerName, Date transDate) {
+		try {
+			con=DButil.getConnection();
+			PreparedStatement ps=con.prepareStatement("select * from pos_tb where customername=? and trans_date=?");
+			ps.setString(1,customerName);
+			ps.setDate(2, transDate);
+			ResultSet success=ps.executeQuery();
+			if(success.next()) {
+				return true;
+			}
+			
+		}catch(SQLException e) {
+			    e.printStackTrace();
+		} 
+		return false;
+	}
+	
+	
 	
 }
